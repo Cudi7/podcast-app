@@ -13,8 +13,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Podcaster</h1>
-        <span>Divider</span>
         <Filter />
         {[...Array(100).keys()].map((el) => (
           <Podcast key={el} el={el} />
