@@ -30,7 +30,6 @@ const Home: NextPage = () => {
       </Head>
       <main className="container mx-auto my-5 px-10">
         <Filter />
-
         <Podcasts data={currentPodcasts} />
       </main>
       {/* <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">

@@ -8,7 +8,7 @@ interface PodcastsProps {
 
 const Podcasts = ({ data }: PodcastsProps) => {
   return (
-    <div>
+    <div className="mt-20  grid grid-cols-4 gap-4">
       {data
         ? data.feed.entry.map((el) => <Podcast key={el.id.label} el={el} />)
         : null}

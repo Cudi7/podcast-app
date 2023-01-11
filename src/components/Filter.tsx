@@ -7,7 +7,7 @@ const Filter = () => {
       <input
         autoComplete="off"
         type="search"
-        className="w-100 mr-2 rounded-lg border border-slate-200 bg-gray-100 p-2"
+        className="mr-2 w-[20rem] rounded-lg border border-slate-200 bg-gray-100 p-2"
         placeholder="Filter podcasts..."
       />
     </div>
