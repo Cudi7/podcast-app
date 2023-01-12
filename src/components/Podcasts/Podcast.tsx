@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { env } from "../../env/server.mjs";
-import type { Entry } from "../../podcasts.interface";
+import type { Entry } from "../../helpers/podcasts.interface";
 
 const Podcast = ({ el }: { el: Entry }) => {
   const detailsURL = env.NEXT_PUBLIC_ITUNES_SINGLE_URL;

@@ -1,5 +1,5 @@
 import { env } from "../../env/server.mjs";
-import type { FeedObj } from "../../podcasts.interface.js";
+import type { FeedObj } from "../../helpers/podcasts.interface.js";
 
 const url = env.NEXT_PUBLIC_ITUNES_URL;
 

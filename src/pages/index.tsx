@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import Podcasts from "../components/Podcasts";
-import type { FeedObj } from "../podcasts.interface";
+import type { FeedObj } from "../helpers/podcasts.interface";
 import { getPodcasts } from "../server/api/podcasts";
 
 const Home: NextPage = () => {
