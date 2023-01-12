@@ -1,12 +1,12 @@
 import { useSearch } from "../contexts/search.context";
 
 const Filter = () => {
-  const { handleFilterByName, filterName } = useSearch();
+  const { handleFilterByName, filterName, filteredNumber } = useSearch();
 
   return (
     <div className="flex items-center justify-end gap-2">
       <span className="border-full rounded-md bg-blue-700 p-1 text-white">
-        100
+        {filteredNumber}
       </span>
       <input
         autoComplete="off"

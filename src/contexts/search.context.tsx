@@ -4,9 +4,15 @@ import { createContext, useContext, useState } from "react";
 
 const useSearchController = () => {
   const [filterName, setFilterName] = useState("");
+  const [filteredNumber, setFilteredNumber] = useState<number>(100);
 
   const handleFilterByName = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFilterName(e.target.value);
+  };
+
+  const handleNumberFilter = (number: number) => {
+    console.log(`new number is:...  ${number}`);
+    setFilteredNumber(number);
   };
 
   const clearFilterName = () => setFilterName("");
@@ -15,12 +21,16 @@ const useSearchController = () => {
     filterName,
     handleFilterByName,
     clearFilterName,
+    handleNumberFilter,
+    filteredNumber,
   };
 };
 
 const SearchContext = createContext<ReturnType<typeof useSearchController>>({
   filterName: "",
+  filteredNumber: 100,
   handleFilterByName: () => {},
+  handleNumberFilter: (number: number) => {},
   clearFilterName: () => {},
 });
 

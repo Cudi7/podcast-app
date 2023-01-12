@@ -2,7 +2,7 @@ import { useSearch } from "../../contexts/search.context";
 import { applySortFilter } from "../../helpers/filterHelper";
 import type { FeedObj } from "../../helpers/podcasts.interface";
 import Podcast from "./Podcast";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 interface PodcastsProps {
   data: FeedObj | undefined;
@@ -10,7 +10,7 @@ interface PodcastsProps {
 
 const Podcasts = ({ data }: PodcastsProps) => {
   const [currentPodcasts, setCurrentPodcasts] = useState<FeedObj | undefined>();
-  const { filterName } = useSearch();
+  const { filterName, handleNumberFilter } = useSearch();
 
   useEffect(() => {
     if (!currentPodcasts) setCurrentPodcasts(data);
@@ -19,7 +19,14 @@ const Podcasts = ({ data }: PodcastsProps) => {
   const filteredPodcasts = useMemo(() => {
     return currentPodcasts ? applySortFilter(currentPodcasts, filterName) : [];
   }, [currentPodcasts, filterName]);
-  console.log(filteredPodcasts);
+
+  const changeFilterNumber = useCallback(() => {
+    handleNumberFilter(filteredPodcasts.length);
+  }, [filteredPodcasts.length, handleNumberFilter]);
+
+  filterName
+    ? changeFilterNumber()
+    : handleNumberFilter(filteredPodcasts.length);
 
   return (
     <div className="mt-20 grid grid-cols-4 gap-4">
