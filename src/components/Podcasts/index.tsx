@@ -1,5 +1,5 @@
 import React from "react";
-import type { FeedObj } from "../../interface";
+import type { FeedObj } from "../../podcasts.interface";
 import Podcast from "./Podcast";
 
 interface PodcastsProps {

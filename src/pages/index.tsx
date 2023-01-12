@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import Podcasts from "../components/Podcasts";
-import type { FeedObj } from "../interface";
+import type { FeedObj } from "../podcasts.interface";
 import { getPodcasts } from "../server/api/podcasts";
 
 const Home: NextPage = () => {
@@ -18,8 +18,6 @@ const Home: NextPage = () => {
 
     if (noCache) void handleFetch();
   }, [noCache]);
-
-  console.log(currentPodcasts);
 
   return (
     <>

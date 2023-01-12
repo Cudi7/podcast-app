@@ -1,10 +1,11 @@
-import type { Entry } from "../../interface";
+import Link from "next/link";
+import { env } from "../../env/server.mjs";
+import type { Entry } from "../../podcasts.interface";
 
 const Podcast = ({ el }: { el: Entry }) => {
-  // console.log(el["im:image"]);
-  console.log(el.title.label.indexOf(el.title.label));
+  const detailsURL = env.NEXT_PUBLIC_ITUNES_SINGLE_URL;
   return (
-    <>
+    <Link href={`/podcast/${el.id.attributes["im:id"]}`}>
       <div className=" max-w-xs rounded-lg border border-gray-200 bg-white shadow-md ">
         <div className="flex flex-col items-center py-10">
           <img
@@ -22,7 +23,7 @@ const Podcast = ({ el }: { el: Entry }) => {
           </span>
         </div>
       </div>
-    </>
+    </Link>
   );
 };
 
