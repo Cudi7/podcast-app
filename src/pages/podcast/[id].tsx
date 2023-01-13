@@ -1,5 +1,7 @@
 import type { InferGetStaticPropsType, NextPage } from "next";
 import React from "react";
+import SinglePodcastLeftContent from "../../components/Podcasts/SinglePodcastLeftContent";
+import SinglePodcastRightContent from "../../components/Podcasts/SinglePodcastRightContent";
 import { env } from "../../env/server.mjs";
 import type { Root } from "../../helpers/podcast.interface.js";
 import type { FeedObj } from "../../helpers/podcasts.interface";
@@ -11,35 +13,25 @@ const Id: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const title = singlePodcast.results[0]?.collectionName;
   const image = singlePodcast.results[0]?.artworkUrl600;
 
+  const episodeLength = singlePodcast.resultCount - 1;
+
   console.log(singlePodcast);
 
+  const leftSideProps = {
+    artistName,
+    title,
+    image,
+  };
+
+  const rightSideProps = {
+    episodeLength,
+    filteredEpisodes: singlePodcast.results.filter((el, i) => i !== 0),
+  };
+
   return (
-    <section className="flex items-center justify-center">
-      <div>
-        <a href="#" className="group relative block max-w-xs bg-black">
-          <img
-            alt={title}
-            src={image}
-            className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
-          />
-          <div className="relative p-8">
-            <p className="text-sm font-medium uppercase tracking-widest text-pink-500">
-              {title}
-            </p>
-            <p className="text-2xl font-bold text-white">{artistName}</p>
-            <div className="mt-64">
-              <div className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-                <p className="text-sm text-white">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Omnis perferendis hic asperiores quibusdam quidem voluptates
-                  doloremque reiciendis nostrum harum. Repudiandae?
-                </p>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div>Right</div>
+    <section className="   container mx-auto flex  justify-between gap-10  px-10 ">
+      <SinglePodcastLeftContent {...leftSideProps} />
+      <SinglePodcastRightContent {...rightSideProps} />
     </section>
   );
 };
@@ -69,7 +61,7 @@ export async function getStaticProps(context: { params: { id: string } }) {
   const id = context.params.id;
 
   const res = await fetch(
-    `${env.NEXT_PUBLIC_ITUNES_SINGLE_URL}${id}&entity=podcastEpisode&limit=20`
+    `${env.NEXT_PUBLIC_ITUNES_SINGLE_URL}${id}&entity=podcastEpisode`
   );
   const data: unknown = await res.json();
 

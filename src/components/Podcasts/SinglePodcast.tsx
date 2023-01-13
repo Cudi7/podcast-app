@@ -1,12 +1,10 @@
 import Link from "next/link";
-import { env } from "../../env/server.mjs";
 import type { Entry } from "../../helpers/podcasts.interface";
 
-const Podcast = ({ el }: { el: Entry }) => {
-  const detailsURL = env.NEXT_PUBLIC_ITUNES_SINGLE_URL;
+const SinglePodcast = ({ el }: { el: Entry }) => {
   return (
     <Link href={`/podcast/${el.id.attributes["im:id"]}`}>
-      <div className=" max-w-xs rounded-lg border border-gray-200 bg-white shadow-md ">
+      <div className=" max-w-xs rounded-lg border border-gray-200 bg-white shadow-md transition duration-300 ease-in-out hover:border-gray-400">
         <div className="flex flex-col items-center py-10">
           <img
             className="mb-3 h-24 w-24 rounded-full shadow-lg"
@@ -27,4 +25,4 @@ const Podcast = ({ el }: { el: Entry }) => {
   );
 };
 
-export default Podcast;
+export default SinglePodcast;

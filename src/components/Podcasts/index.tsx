@@ -1,7 +1,7 @@
 import { useSearch } from "../../contexts/search.context";
 import { applySortFilter } from "../../helpers/filterHelper";
 import type { FeedObj } from "../../helpers/podcasts.interface";
-import Podcast from "./Podcast";
+import SinglePodcast from "./SinglePodcast";
 import { useEffect, useMemo, useState, useCallback } from "react";
 
 interface PodcastsProps {
@@ -31,7 +31,9 @@ const Podcasts = ({ data }: PodcastsProps) => {
   return (
     <div className="mt-20 grid grid-cols-4 gap-4">
       {data
-        ? filteredPodcasts.map((el) => <Podcast key={el.id.label} el={el} />)
+        ? filteredPodcasts.map((el) => (
+            <SinglePodcast key={el.id.label} el={el} />
+          ))
         : null}
     </div>
   );
