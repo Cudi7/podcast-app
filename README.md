@@ -1,6 +1,8 @@
 ## Podcast App
 
-This is the readme for the podcast App
+1 - clone, fork or download project
+2 - npm install
+3 - npm run dev
 
 ## Create T3 App
 
