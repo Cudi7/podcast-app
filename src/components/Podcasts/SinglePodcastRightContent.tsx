@@ -1,9 +1,11 @@
+import Link from "next/link";
 import React from "react";
 import type { Result } from "../../helpers/podcast.interface";
 
 interface Props {
   episodeLength: number;
   filteredEpisodes: Result[];
+  id: number | undefined;
 }
 
 const parseDuration = (ms: number) => {
@@ -13,11 +15,21 @@ const parseDuration = (ms: number) => {
   return `${min}:${sec}`;
 };
 
+const parseDate = (date: number) => {
+  const parsedDate = new Date(date);
+
+  return parsedDate.toLocaleDateString();
+};
+
 const SinglePodcastRightContent = ({
   episodeLength,
   filteredEpisodes,
+  id,
 }: Props) => {
+  const parsedId = String(id);
+
   console.log(filteredEpisodes);
+
   return (
     <div className="grow">
       <h3>Episodes {episodeLength}</h3>
@@ -52,13 +64,32 @@ const SinglePodcastRightContent = ({
                   {filteredEpisodes.map((el, i) => (
                     <tr
                       key={i}
-                      className="border-b bg-white transition duration-300 ease-in-out hover:bg-gray-100"
+                      className=" group border-b bg-white transition duration-300 ease-in-out hover:bg-gray-100"
                     >
-                      <td className="whitespace-wrap px-6 py-4 text-sm font-medium text-gray-900">
-                        {el.trackName}
-                      </td>
+                      <Link
+                        href={{
+                          pathname: `${encodeURIComponent(parsedId)}/episode/${
+                            el.trackId
+                          }`,
+                          query: {
+                            description: el.description,
+                            audio: el.episodeUrl,
+                            title: el.trackName,
+                            artist: el.artistName,
+                            image: el.artworkUrl600,
+                          },
+                        }}
+                        as={`${encodeURIComponent(parsedId)}/episode/${
+                          el.trackId
+                        }`}
+                        passHref
+                      >
+                        <td className="whitespace-wrap px-6 py-4 text-sm font-medium text-blue-900 group-hover:underline">
+                          {el.trackName}
+                        </td>
+                      </Link>
                       <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-gray-900">
-                        {Date.parse(el.releaseDate)}
+                        {parseDate(Date.parse(el.releaseDate))}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-gray-900">
                         {parseDuration(el.trackTimeMillis)}

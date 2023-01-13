@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 interface Props {
@@ -7,9 +8,14 @@ interface Props {
 }
 
 const SinglePodcastLeftContent = ({ artistName, title, image }: Props) => {
+  const router = useRouter();
+
   return (
     <div>
-      <a href="#" className="group relative block max-w-xs bg-black">
+      <div
+        className="group relative block max-w-xs cursor-pointer bg-black"
+        onClick={() => router.back()}
+      >
         <img
           alt={title}
           src={image}
@@ -30,7 +36,7 @@ const SinglePodcastLeftContent = ({ artistName, title, image }: Props) => {
             </div>
           </div>
         </div>
-      </a>
+      </div>
     </div>
   );
 };
