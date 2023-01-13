@@ -11,7 +11,6 @@ const EpisodeDetail = () => {
     title: title as string,
     image: image as string,
   };
-  console.log(link);
   return (
     <section className="   container mx-auto flex  justify-between gap-10  px-10 ">
       <SinglePodcastLeftContent {...leftSideProps} />

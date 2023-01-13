@@ -28,7 +28,6 @@ const SinglePodcastRightContent = ({
 }: Props) => {
   const parsedId = String(id);
 
-  console.log(filteredEpisodes);
 
   return (
     <div className="grow">
