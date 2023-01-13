@@ -10,10 +10,7 @@ const useSearchController = () => {
     setFilterName(e.target.value);
   };
 
-  const handleNumberFilter = (number: number) => {
-    console.log(`new number is:...  ${number}`);
-    setFilteredNumber(number);
-  };
+  const handleNumberFilter = (number: number) => setFilteredNumber(number);
 
   const clearFilterName = () => setFilterName("");
 

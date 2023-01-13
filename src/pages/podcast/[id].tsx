@@ -12,6 +12,7 @@ const Id: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const image = singlePodcast.results[0]?.artworkUrl600;
 
   console.log(singlePodcast);
+
   return (
     <section className="flex items-center justify-center">
       <div>
@@ -67,7 +68,9 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: { params: { id: string } }) {
   const id = context.params.id;
 
-  const res = await fetch(`${env.NEXT_PUBLIC_ITUNES_SINGLE_URL}${id}`);
+  const res = await fetch(
+    `${env.NEXT_PUBLIC_ITUNES_SINGLE_URL}${id}&entity=podcastEpisode&limit=20`
+  );
   const data: unknown = await res.json();
 
   return {

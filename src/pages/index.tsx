@@ -1,23 +1,20 @@
+import type { InferGetStaticPropsType } from "next";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import Podcasts from "../components/Podcasts";
+import { env } from "../env/server.mjs";
 import type { FeedObj } from "../helpers/podcasts.interface";
-import { getPodcasts } from "../server/api/podcasts";
 
-const Home: NextPage = () => {
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  podcasts,
+}) => {
   const [currentPodcasts, setCurrentPodcasts] = useState<FeedObj>();
-  const noCache = true;
 
   useEffect(() => {
-    const handleFetch = async () => {
-      const podcasts: FeedObj | undefined = await getPodcasts();
-      setCurrentPodcasts(podcasts);
-    };
-
-    if (noCache) void handleFetch();
-  }, [noCache]);
+    if (podcasts && !currentPodcasts) setCurrentPodcasts(podcasts);
+  }, [currentPodcasts, podcasts]);
 
   return (
     <>
@@ -64,5 +61,27 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// revalidation is enabled and a new request comes in
+export async function getStaticProps() {
+  const url = env.NEXT_PUBLIC_ITUNES_URL;
+
+  try {
+    const response: Response = await fetch(url);
+    const data: unknown = await response.json();
+
+    return {
+      props: { podcasts: data as FeedObj },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every day
+      revalidate: 86400, // In seconds
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export default Home;
